@@ -6,8 +6,17 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>  <h1 className="text-purple-500 bg-blue-800">sham </h1>
- hellow
+    <>  
+    <div className='inline-block h-[10rem] w-[10rem] bg-pink-300'>
+     <div className='inline-block bg-blue-300 h-[2rem] w-full'>
+      <h3>༺</h3>
+       <div className='inline-block bg-yellow-300 h-[1.8rem] w-[1.8rem]'>
+
+       </div>
+
+     </div>
+    </div>
+ 
     </>
   )
 }
