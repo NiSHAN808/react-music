@@ -23,23 +23,25 @@ function handleMusicChange(index){
 }
 
   return (
-    <>  
-    <div className='inline-flex  h-[10rem] w-[10rem] bg-pink-300 '>
-<img src="./music/p.png" height="10px" width="10px"/>
-
-    </div>
-    <h1>{data[0].name}</h1>
-    <audio controls  ref={audioRef} autoPlay>
+    <>  <div className="flex">
+    <div className='inline-flex flex-col justify-center items-center h-[100vh] w-[50vw] bg-pink-300  '>
+      <div className="inline-flex  h-[30vw] w-[30vw] bg-red-300">
+<img src="./music/p.png" height="100px" width="100px"/>
+</div>
+    
+    <h1 className="text-[2.5vw]">{data[0].name}</h1>
+    <audio controls  ref={audioRef} autoPlay className="w-[20vw]">
   <source src={playedMusic} type="audio/mp3" autoPlay/>
 
 Your browser does not support the audio element.
 </audio>
-<div className="bg-blue-200 inline-flex ">
+</div>
+<div className="bg-blue-200 inline-flex w-[50vw] p-[2vw] ">
   <ul>
-{data.map((dat,index)=> <li className="text-[2rem] text-black pointer" 
+{data.map((dat,index)=> <li className="text-[2rem] text-black cursor-pointer hover:bg-red-200" 
 onClick={()=>handleMusicChange(index)}>{dat.name}</li>)}
   </ul>
-  </div>
+  </div></div>
     </>
   )
 }
