@@ -1,9 +1,54 @@
-const express = require('express');
+ const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const mongoose = require('mongoose');
+const { type } = require('os');
 const app = express();
 const PORT = 5000;
-console.log("new req");
+const { MongoClient } = require("mongodb");
+const uri= 'mongodb+srv://ukufirenirmal:pcM9d0X7jqY0TaRb@muisc.1cprodp.mongodb.net/';
+const cluri = "mongodb+srv://ukufirenirmal:pcM9d0X7jqY0TaRbmuisc.1cprodp.mongodb.net/?retryWrites=true&w=majority&appName=Muisc";
+
+const client = new MongoClient(uri);
+async function viewData() {
+  try {
+    await client.connect();
+
+    const database = client.db("test");
+    const collection = database.collection("users");
+
+    const data = await collection.find({}).limit.toArray();
+    console.log("Fetched data:", data);
+  } catch (err) {
+    console.error("Error:", err);
+  } finally {
+    await client.close();
+  }
+}
+
+viewData();
+// mongoose.connect(uri, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// })
+// .then(() => console.log('✅ Connected to MongoDB'))
+// .catch(err => console.error('❌ MongoDB connection error:', err));
+
+// const songSchema =new mongoose.Schema({
+
+//  name: {
+//   type:String,
+//   required:false,
+//   },
+//   cato:{
+// type:String,
+// required:false,
+//   }
+// });  const User = mongoose.model('User', songSchema);
+
+// const user = new User({  name: 'temp',cato:'just checking' });
+// user.save().then(() => console.log('User saved!'));
+
   let data=[{ music: "./music/ikykissmeXlady.mp3", name: "i know you wana kiss me X lady killer" },
     { music: "./music/Wham! - Last Christmas (Lyrics).mp3", name: "last crismas" },
     { music: "./music/Calvin Harris - Outside (Official Video) ft. Ellie Goulding.mp3", name: "Calvin Harris - Outside (Official Video) ft. Ellie Goulding" },
@@ -20,7 +65,7 @@ app.get('/api/message', (req, res) => {
 app.get('/api/song/:songId', (req, res) => {
   const {songId} = req.params;
 console.log(songId);
-console.log("new req");
+
   const filePath = path.join(__dirname,'msuic', 'ikykissmeXlady.mp3');
   res.sendFile(filePath);
 });
