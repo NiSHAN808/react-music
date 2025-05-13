@@ -5,28 +5,31 @@ const mongoose = require('mongoose');
 const { type } = require('os');
 const app = express();
 const PORT = 5000;
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 const uri= 'mongodb+srv://ukufirenirmal:pcM9d0X7jqY0TaRb@muisc.1cprodp.mongodb.net/';
 const cluri = "mongodb+srv://ukufirenirmal:pcM9d0X7jqY0TaRbmuisc.1cprodp.mongodb.net/?retryWrites=true&w=majority&appName=Muisc";
 
 const client = new MongoClient(uri);
-async function viewData() {
+async function viewData(id) {
+  let data;
   try {
     await client.connect();
 
     const database = client.db("test");
     const collection = database.collection("users");
-
-    const data = await collection.find({}).limit.toArray();
-    console.log("Fetched data:", data);
+let idc='681b2bc9e33d0acb2bb71237'
+console.log("function host",id);
+     data = await collection.find({_id:new ObjectId(idc)}).toArray();
+    
+    return data;
   } catch (err) {
     console.error("Error:", err);
   } finally {
-    await client.close();
+    // await client.close();
   }
+return data;
 }
 
-viewData();
 // mongoose.connect(uri, {
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true,
@@ -63,11 +66,23 @@ app.get('/api/message', (req, res) => {
   // res.sendFile(__dirname + music +"Bambee - Bumble Bee (Lyrics)  Spotiverse");
 });
 app.get('/api/song/:songId', (req, res) => {
-  const {songId} = req.params;
-console.log(songId);
+  const {songId} = req.params; 
 
-  const filePath = path.join(__dirname,'msuic', 'ikykissmeXlady.mp3');
+viewData(songId).then(result => {
+  console.log("Actual data:", result[0].name);
+  let loc=result[0].name+'.mp3'
+  const filePath = path.join(__dirname,'msuic', loc);
   res.sendFile(filePath);
+
+});
+
+
+
+
+
+
+  // const filePath = path.join(__dirname,'msuic', 'ikykissmeXlady.mp3');
+  // res.sendFile(filePath);
 });
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

@@ -5,7 +5,7 @@ import React, { useState, useRef, useEffect } from "react"
 // { music: "./music/Blackbear - Hot Girl Bummer (Lyrics)", name: "Blackbear - Hot Girl Bummer " },
 // { music: "./music/Bambee - Bumble Bee (Lyrics)  Spotiverse.mp3", name: " Bumble Bee 3" }
 // ]
-
+import Navbar from "./Navbar";
 
 
 function App() {
@@ -37,8 +37,8 @@ function App() {
   }
 
   return (
-    <>
-      <div className="flex">
+    <><Navbar/>
+      <div className="flex flex-col lg:flex-row">
         <div className='inline-flex flex-col justify-center items-center h-[100vh] w-[50vw] bg-pink-300  '>
           <div className="inline-flex  h-[30vw] w-[30vw] bg-red-300">
             <img src="./music/p.png" height="100px" width="100px" />
