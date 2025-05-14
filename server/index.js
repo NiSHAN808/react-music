@@ -17,9 +17,8 @@ async function viewData(id) {
 
     const database = client.db("test");
     const collection = database.collection("users");
-let idc='681b2bc9e33d0acb2bb71237'
-console.log("function host",id);
-     data = await collection.find({_id:new ObjectId(idc)}).toArray();
+
+     data = await collection.find({_id:new ObjectId(id)}).toArray();
     
     return data;
   } catch (err) {
